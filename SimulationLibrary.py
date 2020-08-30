@@ -169,8 +169,8 @@ def CheckEqual_Basic(a, b):
 
 # Driver Code
 # Params
-Grid_Size = [10, 10]
-Live_Cells = [(0, 0), (0, 1), (1, 0), (1, 1)]
+Grid_Size = [100, 100]
+Live_Cells = [(0, 0), (0, 1), (1, 0), (1, 1), (22, 23), (22, 21), (22, 22), (22, 24), (22, 25, (23, 22))]
 Grid_Parameters = {
     "DEAD_VALUE": 0, 
     "LIVE_VALUE": 1, 
@@ -182,7 +182,7 @@ Rule_Parameters = {
     "WINDOW_SIZE": [3, 3]
 }
 
-N_Generations = 1000
+N_Generations = 100
 
 progressBar = True
 delay = 1
