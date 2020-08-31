@@ -188,7 +188,7 @@ def CheckEqual_Basic(a, b):
 # Params
 RandomState = True
 
-Grid_Size = [100, 100]
+Grid_Size = [512, 512]
 Live_Cells = [(1, 1), (0, 0), (0, 2), (2, 1)]
 Grid_Parameters = {
     "DEAD_VALUE": 0, 
@@ -206,7 +206,7 @@ N_Generations = 100
 progressBar = True
 delay = 0.01
 
-savePath = 'GeneratedGIFs/sim.gif'
+savePath = 'GeneratedGIFs/sim2.gif'
 fps = 25
 
 # Check Random State
