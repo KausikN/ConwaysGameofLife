@@ -5,8 +5,10 @@ Simulation Utility Functions and Scripts
 # Imports
 import numpy as np
 from tqdm import tqdm
+import matplotlib.pyplot as plt
 
 import GIFUtils
+import StateGenerator
 
 # Main Classes
 class Cell:
@@ -26,12 +28,16 @@ class Grid:
         values = None
         if len(gridDim) == 3:
             # Build Initial 3D Grid
-            cellStructure = [[[None]*gridDim[2]]*gridDim[1]]*gridDim[0]
+            cellStructure = []
 
             for i in range(gridDim[0]):
+                cells_i = []
                 for j in range(gridDim[1]):
+                    cells_j = []
                     for k in range(gridDim[2]):
-                        cellStructure[i][j][k] = Cell(self.gridParams['DEAD_VALUE'], (i, j, k))
+                        cells_j.append(Cell(self.gridParams['DEAD_VALUE'], (i, j, k)))
+                    cells_i.append(cells_j)
+                cellStructure.append(cells_i)
 
             # Fill with Input Cells
             for cell in cells:
@@ -39,11 +45,13 @@ class Grid:
 
         elif len(gridDim) == 2:
             # Build Initial 2D Grid
-            cellStructure = [[None]*gridDim[1]]*gridDim[0]
+            cellStructure = []
 
             for i in range(gridDim[0]):
+                cells_i = []
                 for j in range(gridDim[1]):
-                    cellStructure[i][j] = Cell(self.gridParams['DEAD_VALUE'], (i, j))
+                    cells_i.append(Cell(self.gridParams['DEAD_VALUE'], (i, j)))
+                cellStructure.append(cells_i)
 
             # Fill with Input Cells
             for cell in cells:
@@ -83,23 +91,29 @@ class Simulation:
 def CreateGrid(size, livelocs=[], gridParams={"LIVE_VALUE": 1, "DEAD_VALUE": 0}):
     liveCells = []
     for loc in livelocs:
-        liveCells.append(Cell(gridParams['LIVE_VALUE'], (loc[0], loc[1])))
+        liveCells.append(Cell(gridParams['LIVE_VALUE'], tuple(loc)))
 
     return Grid(liveCells, size, gridParams)
 
 def GetGridValues(grid):
     curGridValues = None
     if len(grid.gridDim) == 3:
-        curGridValues = [[[None]*grid.gridDim[2]]*grid.gridDim[1]]*grid.gridDim[0]
+        curGridValues = []
         for i in range(grid.gridDim[0]):
+            values_i = []
             for j in range(grid.gridDim[1]):
+                values_j = []
                 for k in range(grid.gridDim[2]):
-                    curGridValues[i][j][k] = grid.cellStructure[i][j][k].value
+                    values_j.append(grid.cellStructure[i][j][k].value)
+                values_i.append(values_j)
+            curGridValues.append(values_i)
     elif len(grid.gridDim) == 2:
-        curGridValues = [[None]*grid.gridDim[1]]*grid.gridDim[0]
+        curGridValues = []
         for i in range(grid.gridDim[0]):
+            values_i = []
             for j in range(grid.gridDim[1]):
-                curGridValues[i][j] = grid.cellStructure[i][j].value
+                values_i.append(grid.cellStructure[i][j].value)
+            curGridValues.append(values_i)
                 
     return curGridValues
 
@@ -130,16 +144,19 @@ def RuleFunc_StandardConwayRules2D(grid, params):
                         continue
                     if not grid.gridParams['CheckEqual'](initial_grid[curPoint[0]][curPoint[1]], grid.gridParams['DEAD_VALUE']):
                         liveCount += 1
-                # 1
-                livePart = liveCount / ((params['WINDOW_SIZE'][0]*params['WINDOW_SIZE'][1])-1)
-                if grid.gridParams['CheckEqual'](initial_grid[i][j], grid.gridParams['LIVE_VALUE']) and livePart >= (2/8) and livePart <= (3/8):
-                    grid.cellStructure[i][j].value = grid.gridParams['LIVE_VALUE']
-                # 2
-                elif grid.gridParams['CheckEqual'](initial_grid[i][j], grid.gridParams['DEAD_VALUE']) and int(livePart) == int(3/8):
-                    grid.cellStructure[i][j].value = grid.gridParams['LIVE_VALUE']
-                # 3
-                else:
-                    grid.cellStructure[i][j].value = grid.gridParams['DEAD_VALUE']
+            # 1
+            livePart = liveCount / ((params['WINDOW_SIZE'][0]*params['WINDOW_SIZE'][1])-1)
+            if grid.gridParams['CheckEqual'](initial_grid[i][j], grid.gridParams['LIVE_VALUE']) and livePart >= (2/8) and livePart <= (3/8):
+                grid.cellStructure[i][j].value = grid.gridParams['LIVE_VALUE']
+                # print("R1:", i, j, liveCount, livePart)
+            # 2
+            elif grid.gridParams['CheckEqual'](initial_grid[i][j], grid.gridParams['DEAD_VALUE']) and int(livePart*100) == int((3/8) * 100):
+                grid.cellStructure[i][j].value = grid.gridParams['LIVE_VALUE']
+                # print("R2:", i, j, liveCount, livePart)
+            # 3
+            else:
+                grid.cellStructure[i][j].value = grid.gridParams['DEAD_VALUE']
+                # print("R3:", i, j, liveCount, livePart)
 
     return grid
 
@@ -169,8 +186,10 @@ def CheckEqual_Basic(a, b):
 
 # Driver Code
 # Params
+RandomState = True
+
 Grid_Size = [100, 100]
-Live_Cells = [(0, 0), (0, 1), (1, 0), (1, 1), (22, 23), (22, 21), (22, 22), (22, 24), (22, 25, (23, 22))]
+Live_Cells = [(1, 1), (0, 0), (0, 2), (2, 1)]
 Grid_Parameters = {
     "DEAD_VALUE": 0, 
     "LIVE_VALUE": 1, 
@@ -185,14 +204,26 @@ Rule_Parameters = {
 N_Generations = 100
 
 progressBar = True
-delay = 1
+delay = 0.01
 
-savePath = 'sim.gif'
+savePath = 'GeneratedGIFs/sim.gif'
 fps = 25
 
-# Form grid and Simulate
+# Check Random State
+if RandomState:
+    Random_State = StateGenerator.RandomState(Grid_Size, [Grid_Parameters['LIVE_VALUE'], Grid_Parameters['DEAD_VALUE']])
+    Live_Cells_Indices = np.where(Random_State != Grid_Parameters['DEAD_VALUE'])
+    Live_Cells = list(zip(list(Live_Cells_Indices[0]), list(Live_Cells_Indices[1])))
+
+# Form Grid and Simulate
 grid = CreateGrid(Grid_Size, Live_Cells, Grid_Parameters)
 sim = Simulation(grid, Rule_Func, Rule_Parameters)
+
+gv = GetGridValues(sim.grid)
+# print(gv)
+plt.title('Initial State')
+plt.imshow(np.array(Grid2Image_GreyScale(gv)), 'gray')
+plt.show()
 
 sim.run(N_Generations, not progressBar)
 
