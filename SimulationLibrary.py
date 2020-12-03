@@ -188,7 +188,7 @@ def CheckEqual_Basic(a, b):
 # Params
 RandomState = True
 
-Grid_Size = [512, 512]
+Grid_Size = [10, 10]
 Live_Cells = [(1, 1), (0, 0), (0, 2), (2, 1)]
 Grid_Parameters = {
     "DEAD_VALUE": 0, 
@@ -232,5 +232,5 @@ GridImages = []
 for gridData in sim.grid_history:
     GridImages.append(Grid2Image_GreyScale(gridData))
 
-GIFUtils.SaveImageSequence(GridImages, savePath, 'gif', fps=fps)
+# GIFUtils.SaveImageSequence(GridImages, savePath, 'gif', fps=fps)
 GIFUtils.DisplayImageSequence(GridImages, delay, gray=True)
