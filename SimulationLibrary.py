@@ -21,6 +21,7 @@ class Grid:
     def __init__(self, cells, gridDim, gridParams):
         self.gridDim = gridDim
         self.gridParams = gridParams
+        self.cells = cells
         self.cellStructure = self.buildGrid(cells, gridDim)
 
     def buildGrid(self, cells, gridDim):
@@ -59,6 +60,9 @@ class Grid:
         
         return cellStructure
 
+    def copy(self):
+        return Grid(self.cells, self.gridDim, self.gridParams)
+
 
 class Simulation:
     def __init__(self, grid, Rule, RuleParams):
@@ -80,10 +84,16 @@ class Simulation:
         self.grid_history = []
         self.recordGrid()
 
-    def run(self, n_gens, progressBarDisable=False):
+    def run(self, n_gens, progressBarDisable=False, stopIfNoChange=True):
         for gen in tqdm(range(n_gens), disable=progressBarDisable):
             self.curGen += 1
+            earlierGridValues = np.array(GetGridValues(self.grid))
+
             self.grid = self.rule(self.grid, self.rule_params)
+
+            if stopIfNoChange and (np.array_equal(earlierGridValues, np.array(GetGridValues(self.grid)))):
+                break
+
             self.recordGrid()
             
 
@@ -186,7 +196,7 @@ def CheckEqual_Basic(a, b):
 
 # Driver Code
 # Params
-RandomState = True
+RandomState = False
 
 Grid_Size = [10, 10]
 Live_Cells = [(1, 1), (0, 0), (0, 2), (2, 1)]
@@ -202,6 +212,7 @@ Rule_Parameters = {
 }
 
 N_Generations = 100
+stopIfNoChange = True
 
 progressBar = True
 delay = 0.01
@@ -225,7 +236,7 @@ plt.title('Initial State')
 plt.imshow(np.array(Grid2Image_GreyScale(gv)), 'gray')
 plt.show()
 
-sim.run(N_Generations, not progressBar)
+sim.run(N_Generations, not progressBar, stopIfNoChange)
 
 # Form Images and Save and Display GIF
 GridImages = []
