@@ -1,0 +1,10 @@
+{
+    "PROJECT_NAME": "ConwaysGameofLife",
+    "PROJECT_LINK": "https://github.com/KausikN/ConwaysGameofLife",
+
+    "PROJECT_DESC": "A Highly Customisable Cellular Automata Visualiser - Conway's Game of Life",
+
+    "PROJECT_README": "README.md",
+
+    "PROJECT_MODES": ["Cellular Automata Simulator 2D"]
+}

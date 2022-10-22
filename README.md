@@ -2,4 +2,4 @@
  A Highly Customisable Cellular Automata Visualiser - Conway's Game of Life
 
 
-![image](GeneratedGIFs/sim.gif)
+![image](GeneratedVisualisations/Conway_1.gif)
