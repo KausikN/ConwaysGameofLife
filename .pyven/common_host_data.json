@@ -1,3 +1,10 @@
 {
-    "files_to_download": []
+    "files_to_download": [
+        "StreamLitGUI/",
+        "app.py",
+        "Simulator.py",
+        "Rules.py",
+        "RuleLibrary/",
+        "Utils/"
+    ]
 }
