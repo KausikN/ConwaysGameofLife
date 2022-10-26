@@ -67,7 +67,26 @@ def SaveCache():
     json.dump(CACHE, open(CACHE_PATH, "w"), indent=4)
 
 # Main Functions
+@st.cache(suppress_st_warning=True)
+def SimRun_2D_Cached(GridValues, USERINPUT_Funcs, SimParams):
+    '''
+    Run Simulation with Caching
+    '''
+    # Init Grid
+    GRID = np.empty((GridValues.shape[0], GridValues.shape[1]), dtype=object)
+    for i in range(GridValues.shape[0]):
+        for j in range(GridValues.shape[1]):
+            GRID[i, j] = Cell(GridValues[i, j], (i, j))
+    GRID = Grid(GRID)
+    # Init Sim
+    SIM = Simulation(GRID, USERINPUT_Funcs, **SimParams)
+    # Run Sim
+    PROGRESS_BAR = st.progress(0)
+    for i in range(SIM.n_iterations):
+        SIM.step()
+        PROGRESS_BAR.progress((i+1)/SIM.n_iterations)
 
+    return SIM
 
 # UI Functions
 def UI_LoadRuleFunc(dim="2D"):
@@ -118,14 +137,8 @@ def UI_GenerateGrid_2D():
         ResizeImage_Pixelate(GridValues, maxSize=SETTINGS["display_size"]), 
         caption="Grid", use_column_width=False
     )
-    ## Convert to Grid Class
-    GRID = np.empty(USERINPUT_GridSize, dtype=object)
-    for i in range(GridValues.shape[0]):
-        for j in range(GridValues.shape[1]):
-            GRID[i, j] = Cell(GridValues[i, j], (i, j))
-    GRID = Grid(GRID)
 
-    return GRID
+    return GridValues
 
 def UI_SimulatorParams_2D():
     # Init
@@ -163,7 +176,7 @@ def cellular_automata_simulator_2d():
     SETTINGS["display_size"] = st.sidebar.slider("Display Size", min_value=128, max_value=1024, value=512, step=128)
 
     # Load Inputs
-    GRID = UI_GenerateGrid_2D()
+    GridValues = UI_GenerateGrid_2D()
     RuleFunc = UI_LoadRuleFunc(dim="2D")
     SimParams = UI_SimulatorParams_2D()
 
@@ -172,11 +185,7 @@ def cellular_automata_simulator_2d():
         USERINPUT_Funcs = {
             "update": functools.partial(RuleFunc["func"], **RuleFunc["params"])
         }
-        SIM = Simulation(GRID, USERINPUT_Funcs, **SimParams)
-        PROGRESS_BAR = st.progress(0)
-        for i in range(SIM.n_iterations):
-            SIM.step()
-            PROGRESS_BAR.progress((i+1)/SIM.n_iterations)
+        SIM = SimRun_2D_Cached(GridValues, USERINPUT_Funcs, SimParams)
         # Display Outputs
         UI_VisualiseSim_2D(SIM)
     
