@@ -181,7 +181,9 @@ def cellular_automata_simulator_2d():
     SimParams = UI_SimulatorParams_2D()
 
     # Process Inputs
-    if st.checkbox("Simulate", value=True):
+    USERINPUT_Process = st.checkbox("Stream Process", value=False)
+    if not USERINPUT_Process: USERINPUT_Process = st.button("Process")
+    if USERINPUT_Process:
         USERINPUT_Funcs = {
             "update": functools.partial(RuleFunc["func"], **RuleFunc["params"])
         }
