@@ -68,6 +68,7 @@ def VideoUtils_SaveFrames2Video(frames, pathOut, fps=20, size=None):
     else:
         # if size is None: size = (frames[0].shape[1], frames[0].shape[0])
         if size is None: size = (640, 480)
+        frames = [np.array(frame*255, dtype=int) for frame in frames]
         frames = [ResizeImage_Pad(frame, size=size[::-1]) for frame in frames]
         out = cv2.VideoWriter(pathOut, cv2.VideoWriter_fourcc(*'XVID'), fps, size)
         for frame in frames:
