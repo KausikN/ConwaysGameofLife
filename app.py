@@ -9,6 +9,8 @@ import functools
 import numpy as np
 import streamlit as st
 
+from Utils.VideoUtils import *
+
 from Simulator import *
 from Rules import *
 
@@ -43,8 +45,10 @@ def HomePage():
 
 #############################################################################################################################
 # Repo Based Vars
-CACHE_PATH = "StreamLitGUI/CacheData/Cache.json"
-TEMP_PATH = "StreamLitGUI/TempData/"
+PATHS = {
+    "cache": "StreamLitGUI/CacheData/Cache.json",
+    "temp": "StreamLitGUI/TempData/"
+}
 GRID_PARAMS = {
     "2D": {
         "max_grid_size": (100, 100)
@@ -60,15 +64,15 @@ SETTINGS = {
 # Util Functions
 def LoadCache():
     global CACHE
-    CACHE = json.load(open(CACHE_PATH, "r"))
+    CACHE = json.load(open(PATHS["cache"], "r"))
 
 def SaveCache():
     global CACHE
-    json.dump(CACHE, open(CACHE_PATH, "w"), indent=4)
+    json.dump(CACHE, open(PATHS["cache"], "w"), indent=4)
 
 # Main Functions
 @st.cache(suppress_st_warning=True)
-def SimRun_2D_Cached(GridValues, USERINPUT_Funcs, SimParams):
+def CachedFunc_SimRun_2D(GridValues, USERINPUT_Funcs, SimParams):
     '''
     Run Simulation with Caching
     '''
@@ -151,14 +155,14 @@ def UI_SimulatorParams_2D():
     }
     return USERINPUT_SimParams
 
-def UI_VisualiseSim_2D(SIM):
+def UI_SimVis_2D(SIM):
     # Init
     st.markdown("## Visualise Simulation")
     # Visualise
     ## Save History as GIF and Display
-    save_path = os.path.join(TEMP_PATH, "SimHistory.gif")
+    save_path = os.path.join(PATHS["temp"], "SimHistory.gif")
     SimHistory_Images = [ResizeImage_Pixelate(h["image"], maxSize=SETTINGS["display_size"]) for h in SIM.history]
-    SaveImageSequence(SimHistory_Images, save_path, mode="gif", fps=5.0)
+    VideoUtils_SaveFrames2Video(SimHistory_Images, save_path, fps=5.0)
     st.image(save_path, caption="Simulation", use_column_width=True)
     ## Display History Slider
     USERINPUT_HistorySlider = st.slider("Step", min_value=0, max_value=len(SIM.history)-1, value=0)
@@ -166,6 +170,13 @@ def UI_VisualiseSim_2D(SIM):
         ResizeImage_Pixelate(SIM.history[USERINPUT_HistorySlider]["image"], maxSize=SETTINGS["display_size"]), 
         caption="Simulation", use_column_width=False
     )
+    # ## Save History as Video and Display
+    # save_path = os.path.join(PATHS["temp"], "SimHistory.avi")
+    # save_path_converted = os.path.join(PATHS["temp"], "SimHistory_Converted.mp4")
+    # SimHistory_Images = [ResizeImage_Pixelate(h["image"], maxSize=SETTINGS["display_size"]) for h in SIM.history]
+    # VideoUtils_SaveFrames2Video(SimHistory_Images, save_path, fps=20)
+    # VideoUtils_FixVideo(save_path, save_path_converted)
+    # st.video(save_path_converted)
 
 # Repo Based Functions
 def cellular_automata_simulator_2d():
@@ -187,9 +198,9 @@ def cellular_automata_simulator_2d():
         USERINPUT_Funcs = {
             "update": functools.partial(RuleFunc["func"], **RuleFunc["params"])
         }
-        SIM = SimRun_2D_Cached(GridValues, USERINPUT_Funcs, SimParams)
+        SIM = CachedFunc_SimRun_2D(GridValues, USERINPUT_Funcs, SimParams)
         # Display Outputs
-        UI_VisualiseSim_2D(SIM)
+        UI_SimVis_2D(SIM)
     
 #############################################################################################################################
 # Driver Code
