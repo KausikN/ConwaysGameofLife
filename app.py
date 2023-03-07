@@ -159,24 +159,22 @@ def UI_SimVis_2D(SIM):
     # Init
     st.markdown("## Visualise Simulation")
     # Visualise
-    ## Save History as GIF and Display
-    save_path = os.path.join(PATHS["temp"], "SimHistory.gif")
-    SimHistory_Images = [ResizeImage_Pixelate(h["image"], maxSize=SETTINGS["display_size"]) for h in SIM.history]
-    VideoUtils_SaveFrames2Video(SimHistory_Images, save_path, fps=5.0)
-    st.image(save_path, caption="Simulation", use_column_width=True)
-    ## Display History Slider
-    USERINPUT_HistorySlider = st.slider("Step", min_value=0, max_value=len(SIM.history)-1, value=0)
-    st.image(
-        ResizeImage_Pixelate(SIM.history[USERINPUT_HistorySlider]["image"], maxSize=SETTINGS["display_size"]), 
-        caption="Simulation", use_column_width=False
-    )
-    # ## Save History as Video and Display
-    # save_path = os.path.join(PATHS["temp"], "SimHistory.avi")
-    # save_path_converted = os.path.join(PATHS["temp"], "SimHistory_Converted.mp4")
+    # ## Save History as GIF and Display
+    # save_path = os.path.join(PATHS["temp"], "SimHistory.gif")
     # SimHistory_Images = [ResizeImage_Pixelate(h["image"], maxSize=SETTINGS["display_size"]) for h in SIM.history]
-    # VideoUtils_SaveFrames2Video(SimHistory_Images, save_path, fps=20)
-    # VideoUtils_FixVideo(save_path, save_path_converted)
-    # st.video(save_path_converted)
+    # VideoUtils_SaveFrames2Video(SimHistory_Images, save_path, fps=5.0)
+    # st.image(save_path, caption="Simulation", use_column_width=True)
+    # ## Display History Slider
+    # USERINPUT_HistorySlider = st.slider("Step", min_value=0, max_value=len(SIM.history)-1, value=0)
+    # st.image(
+    #     ResizeImage_Pixelate(SIM.history[USERINPUT_HistorySlider]["image"], maxSize=SETTINGS["display_size"]), 
+    #     caption="Simulation", use_column_width=False
+    # )
+    ## Save History as Video and Display
+    save_path_converted = os.path.join(PATHS["temp"], "SimHistory_Converted.mp4")
+    SimHistory_Images = [ResizeImage_Pixelate(h["image"], maxSize=SETTINGS["display_size"]) for h in SIM.history]
+    VideoUtils_SaveFrames2Video(SimHistory_Images, save_path_converted, fps=20.0)
+    st.video(save_path_converted)
 
 # Repo Based Functions
 def cellular_automata_simulator_2d():
