@@ -11,8 +11,23 @@
             "subDir": "",
             "dependencies": [
                 "os.py",
+                "json.py",
+                "functools.py",
+                "numpy.py",
                 "streamlit.py",
-                "json.py"
+                "*.py",
+                "*.py",
+                "*.py"
+            ]
+        },
+        "Rules.py": {
+            "name": "Rules",
+            "type": "local",
+            "link": "https://github.com/KausikN/ConwaysGameofLife/blob/master/Rules.py",
+            "parentDir": "E:/Github Codes and Projects/Projects/ConwaysGameofLife",
+            "subDir": "",
+            "dependencies": [
+                "Rules_ConwaysGameofLife.py"
             ]
         },
         "Simulator.py": {
@@ -26,39 +41,37 @@
                 "time.py",
                 "numpy.py",
                 "matplotlib/pyplot.py",
-                "StateGenerator.py",
-                "tqdm.py",
-                "*.py"
-            ]
-        },
-        "Utils/GIFUtils.py": {
-            "name": "GIFUtils",
-            "type": "local",
-            "link": "https://github.com/KausikN/ConwaysGameofLife/blob/master/Utils/GIFUtils.py",
-            "parentDir": "E:/Github Codes and Projects/Projects/ConwaysGameofLife",
-            "subDir": "Utils",
-            "dependencies": [
-                "cv2.py",
-                "random.py",
-                "imageio.py",
-                "itertools.py",
-                "numpy.py",
-                "matplotlib/pyplot.py",
-                "FuncAnimation.py",
-                "PillowWriter.py",
                 "tqdm.py"
             ]
         },
-        "random.py": {
-            "name": "random",
-            "type": "missing",
-            "link": "",
-            "parentDir": "",
-            "subDir": "",
-            "dependencies": []
+        "RuleLibrary/Rules_ConwaysGameofLife.py": {
+            "name": "Rules_ConwaysGameofLife",
+            "type": "local",
+            "link": "https://github.com/KausikN/ConwaysGameofLife/blob/master/RuleLibrary/Rules_ConwaysGameofLife.py",
+            "parentDir": "E:/Github Codes and Projects/Projects/ConwaysGameofLife",
+            "subDir": "RuleLibrary",
+            "dependencies": [
+                "cv2.py",
+                "numpy.py"
+            ]
         },
-        "tqdm.py": {
-            "name": "tqdm",
+        "Utils/VideoUtils.py": {
+            "name": "VideoUtils",
+            "type": "local",
+            "link": "https://github.com/KausikN/ConwaysGameofLife/blob/master/Utils/VideoUtils.py",
+            "parentDir": "E:/Github Codes and Projects/Projects/ConwaysGameofLife",
+            "subDir": "Utils",
+            "dependencies": [
+                "os.py",
+                "cv2.py",
+                "subprocess.py",
+                "numpy.py",
+                "Image.py",
+                "tqdm.py"
+            ]
+        },
+        "os.py": {
+            "name": "os",
             "type": "missing",
             "link": "",
             "parentDir": "",
@@ -73,72 +86,32 @@
             "subDir": "",
             "dependencies": []
         },
-        "FuncAnimation.py": {
-            "name": "FuncAnimation",
+        "Image.py": {
+            "name": "Image",
+            "type": "inbuilt",
+            "link": "",
+            "parentDir": "E:/Github Codes and Projects/Projects/ConwaysGameofLife",
+            "subDir": "",
+            "dependencies": []
+        },
+        "numpy.py": {
+            "name": "numpy",
             "type": "missing",
             "link": "",
             "parentDir": "",
             "subDir": "",
             "dependencies": []
         },
-        "os.py": {
-            "name": "os",
+        "tqdm.py": {
+            "name": "tqdm",
             "type": "missing",
             "link": "",
             "parentDir": "",
             "subDir": "",
             "dependencies": []
         },
-        "StateGenerator.py": {
-            "name": "StateGenerator",
-            "type": "missing",
-            "link": "",
-            "parentDir": "",
-            "subDir": "",
-            "dependencies": []
-        },
-        "*.py": {
-            "name": "*",
-            "type": "missing",
-            "link": "",
-            "parentDir": "",
-            "subDir": "",
-            "dependencies": []
-        },
-        "time.py": {
-            "name": "time",
-            "type": "missing",
-            "link": "",
-            "parentDir": "",
-            "subDir": "",
-            "dependencies": []
-        },
-        "itertools.py": {
-            "name": "itertools",
-            "type": "missing",
-            "link": "",
-            "parentDir": "",
-            "subDir": "",
-            "dependencies": []
-        },
-        "streamlit.py": {
-            "name": "streamlit",
-            "type": "missing",
-            "link": "",
-            "parentDir": "",
-            "subDir": "",
-            "dependencies": []
-        },
-        "PillowWriter.py": {
-            "name": "PillowWriter",
-            "type": "missing",
-            "link": "",
-            "parentDir": "",
-            "subDir": "",
-            "dependencies": []
-        },
-        "imageio.py": {
-            "name": "imageio",
+        "json.py": {
+            "name": "json",
             "type": "missing",
             "link": "",
             "parentDir": "",
@@ -153,16 +126,48 @@
             "subDir": "matplotlib",
             "dependencies": []
         },
-        "numpy.py": {
-            "name": "numpy",
+        "streamlit.py": {
+            "name": "streamlit",
             "type": "missing",
             "link": "",
             "parentDir": "",
             "subDir": "",
             "dependencies": []
         },
-        "json.py": {
-            "name": "json",
+        "*.py": {
+            "name": "*",
+            "type": "missing",
+            "link": "",
+            "parentDir": "",
+            "subDir": "",
+            "dependencies": []
+        },
+        "functools.py": {
+            "name": "functools",
+            "type": "missing",
+            "link": "",
+            "parentDir": "",
+            "subDir": "",
+            "dependencies": []
+        },
+        "subprocess.py": {
+            "name": "subprocess",
+            "type": "missing",
+            "link": "",
+            "parentDir": "",
+            "subDir": "",
+            "dependencies": []
+        },
+        "Rules_ConwaysGameofLife.py": {
+            "name": "Rules_ConwaysGameofLife",
+            "type": "missing",
+            "link": "",
+            "parentDir": "",
+            "subDir": "",
+            "dependencies": []
+        },
+        "time.py": {
+            "name": "time",
             "type": "missing",
             "link": "",
             "parentDir": "",
