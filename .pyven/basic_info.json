@@ -2,6 +2,7 @@
     "repo_name": "ConwaysGameofLife",
     "requirements": [
         "streamlit",
+        "matplotlib",
         "opencv-python-headless",
         "stqdm",
         "streamlit-code-editor"
