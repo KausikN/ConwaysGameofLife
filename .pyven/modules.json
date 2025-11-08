@@ -1,177 +1,177 @@
 {
     "name": "ConwaysGameofLife",
-    "repoLink": "https://github.com/KausikN/ConwaysGameofLife",
-    "localPath": "E:/Github Codes and Projects/Projects/ConwaysGameofLife",
+    "repo_link": "https://github.com/KausikN/ConwaysGameofLife",
+    "local_path": "D:/Github Codes and Projects/Projects/ConwaysGameofLife",
     "modules": {
-        "app.py": {
-            "name": "app",
+        "*.py": {
+            "name": "*",
+            "type": "missing",
+            "link": "",
+            "parent_dir": "",
+            "sub_dir": "",
+            "dependencies": []
+        },
+        "Image.py": {
+            "name": "Image",
+            "type": "missing",
+            "link": "",
+            "parent_dir": "",
+            "sub_dir": "",
+            "dependencies": []
+        },
+        "RuleLibrary/Rules_ConwaysGameofLife.py": {
+            "name": "Rules_ConwaysGameofLife",
             "type": "local",
-            "link": "https://github.com/KausikN/ConwaysGameofLife/blob/master/app.py",
-            "parentDir": "E:/Github Codes and Projects/Projects/ConwaysGameofLife",
-            "subDir": "",
+            "link": "https://github.com/KausikN/ConwaysGameofLife/blob/master/RuleLibrary/Rules_ConwaysGameofLife.py",
+            "parent_dir": "D:/Github Codes and Projects/Projects/ConwaysGameofLife",
+            "sub_dir": "RuleLibrary",
             "dependencies": [
-                "os.py",
-                "json.py",
-                "functools.py",
-                "numpy.py",
-                "streamlit.py",
-                "*.py",
-                "*.py",
-                "*.py"
+                "cv2.py",
+                "numpy.py"
             ]
         },
         "Rules.py": {
             "name": "Rules",
             "type": "local",
             "link": "https://github.com/KausikN/ConwaysGameofLife/blob/master/Rules.py",
-            "parentDir": "E:/Github Codes and Projects/Projects/ConwaysGameofLife",
-            "subDir": "",
+            "parent_dir": "D:/Github Codes and Projects/Projects/ConwaysGameofLife",
+            "sub_dir": "",
             "dependencies": [
                 "Rules_ConwaysGameofLife.py"
             ]
+        },
+        "Rules_ConwaysGameofLife.py": {
+            "name": "Rules_ConwaysGameofLife",
+            "type": "missing",
+            "link": "",
+            "parent_dir": "",
+            "sub_dir": "",
+            "dependencies": []
         },
         "Simulator.py": {
             "name": "Simulator",
             "type": "local",
             "link": "https://github.com/KausikN/ConwaysGameofLife/blob/master/Simulator.py",
-            "parentDir": "E:/Github Codes and Projects/Projects/ConwaysGameofLife",
-            "subDir": "",
+            "parent_dir": "D:/Github Codes and Projects/Projects/ConwaysGameofLife",
+            "sub_dir": "",
             "dependencies": [
                 "cv2.py",
-                "time.py",
-                "numpy.py",
                 "matplotlib/pyplot.py",
+                "numpy.py",
+                "time.py",
                 "tqdm.py"
-            ]
-        },
-        "RuleLibrary/Rules_ConwaysGameofLife.py": {
-            "name": "Rules_ConwaysGameofLife",
-            "type": "local",
-            "link": "https://github.com/KausikN/ConwaysGameofLife/blob/master/RuleLibrary/Rules_ConwaysGameofLife.py",
-            "parentDir": "E:/Github Codes and Projects/Projects/ConwaysGameofLife",
-            "subDir": "RuleLibrary",
-            "dependencies": [
-                "cv2.py",
-                "numpy.py"
             ]
         },
         "Utils/VideoUtils.py": {
             "name": "VideoUtils",
             "type": "local",
             "link": "https://github.com/KausikN/ConwaysGameofLife/blob/master/Utils/VideoUtils.py",
-            "parentDir": "E:/Github Codes and Projects/Projects/ConwaysGameofLife",
-            "subDir": "Utils",
+            "parent_dir": "D:/Github Codes and Projects/Projects/ConwaysGameofLife",
+            "sub_dir": "Utils",
             "dependencies": [
-                "os.py",
-                "cv2.py",
-                "subprocess.py",
-                "numpy.py",
                 "Image.py",
+                "cv2.py",
+                "numpy.py",
+                "os.py",
+                "subprocess.py",
                 "tqdm.py"
             ]
         },
-        "os.py": {
-            "name": "os",
-            "type": "missing",
-            "link": "",
-            "parentDir": "",
-            "subDir": "",
-            "dependencies": []
+        "app.py": {
+            "name": "app",
+            "type": "local",
+            "link": "https://github.com/KausikN/ConwaysGameofLife/blob/master/app.py",
+            "parent_dir": "D:/Github Codes and Projects/Projects/ConwaysGameofLife",
+            "sub_dir": "",
+            "dependencies": [
+                "*.py",
+                "*.py",
+                "*.py",
+                "functools.py",
+                "json.py",
+                "numpy.py",
+                "os.py",
+                "streamlit.py"
+            ]
         },
         "cv2.py": {
             "name": "cv2",
-            "type": "missing",
-            "link": "",
-            "parentDir": "",
-            "subDir": "",
-            "dependencies": []
-        },
-        "Image.py": {
-            "name": "Image",
             "type": "inbuilt",
             "link": "",
-            "parentDir": "E:/Github Codes and Projects/Projects/ConwaysGameofLife",
-            "subDir": "",
+            "parent_dir": "D:/Github Codes and Projects/Projects/ConwaysGameofLife",
+            "sub_dir": "",
             "dependencies": []
         },
-        "numpy.py": {
-            "name": "numpy",
-            "type": "missing",
+        "functools.py": {
+            "name": "functools",
+            "type": "inbuilt",
             "link": "",
-            "parentDir": "",
-            "subDir": "",
-            "dependencies": []
-        },
-        "tqdm.py": {
-            "name": "tqdm",
-            "type": "missing",
-            "link": "",
-            "parentDir": "",
-            "subDir": "",
+            "parent_dir": "D:/Github Codes and Projects/Projects/ConwaysGameofLife",
+            "sub_dir": "",
             "dependencies": []
         },
         "json.py": {
             "name": "json",
-            "type": "missing",
+            "type": "inbuilt",
             "link": "",
-            "parentDir": "",
-            "subDir": "",
+            "parent_dir": "D:/Github Codes and Projects/Projects/ConwaysGameofLife",
+            "sub_dir": "",
             "dependencies": []
         },
         "matplotlib/pyplot.py": {
             "name": "pyplot",
             "type": "inbuilt",
             "link": "",
-            "parentDir": "E:/Github Codes and Projects/Projects/ConwaysGameofLife",
-            "subDir": "matplotlib",
+            "parent_dir": "D:/Github Codes and Projects/Projects/ConwaysGameofLife",
+            "sub_dir": "matplotlib",
+            "dependencies": []
+        },
+        "numpy.py": {
+            "name": "numpy",
+            "type": "inbuilt",
+            "link": "",
+            "parent_dir": "D:/Github Codes and Projects/Projects/ConwaysGameofLife",
+            "sub_dir": "",
+            "dependencies": []
+        },
+        "os.py": {
+            "name": "os",
+            "type": "inbuilt",
+            "link": "",
+            "parent_dir": "D:/Github Codes and Projects/Projects/ConwaysGameofLife",
+            "sub_dir": "",
             "dependencies": []
         },
         "streamlit.py": {
             "name": "streamlit",
-            "type": "missing",
+            "type": "inbuilt",
             "link": "",
-            "parentDir": "",
-            "subDir": "",
-            "dependencies": []
-        },
-        "*.py": {
-            "name": "*",
-            "type": "missing",
-            "link": "",
-            "parentDir": "",
-            "subDir": "",
-            "dependencies": []
-        },
-        "functools.py": {
-            "name": "functools",
-            "type": "missing",
-            "link": "",
-            "parentDir": "",
-            "subDir": "",
+            "parent_dir": "D:/Github Codes and Projects/Projects/ConwaysGameofLife",
+            "sub_dir": "",
             "dependencies": []
         },
         "subprocess.py": {
             "name": "subprocess",
-            "type": "missing",
+            "type": "inbuilt",
             "link": "",
-            "parentDir": "",
-            "subDir": "",
-            "dependencies": []
-        },
-        "Rules_ConwaysGameofLife.py": {
-            "name": "Rules_ConwaysGameofLife",
-            "type": "missing",
-            "link": "",
-            "parentDir": "",
-            "subDir": "",
+            "parent_dir": "D:/Github Codes and Projects/Projects/ConwaysGameofLife",
+            "sub_dir": "",
             "dependencies": []
         },
         "time.py": {
             "name": "time",
-            "type": "missing",
+            "type": "inbuilt",
             "link": "",
-            "parentDir": "",
-            "subDir": "",
+            "parent_dir": "D:/Github Codes and Projects/Projects/ConwaysGameofLife",
+            "sub_dir": "",
+            "dependencies": []
+        },
+        "tqdm.py": {
+            "name": "tqdm",
+            "type": "inbuilt",
+            "link": "",
+            "parent_dir": "D:/Github Codes and Projects/Projects/ConwaysGameofLife",
+            "sub_dir": "",
             "dependencies": []
         }
     }

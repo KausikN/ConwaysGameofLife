@@ -3,19 +3,19 @@
         "PyVenStarter": {
             "name": "PyVenStarter",
             "special": {
-                "choiceBased": {},
-                "checkBased": {}
+                "choice_based": {},
+                "check_based": {}
             }
         },
         "StreamlitGUI": {
             "name": "StreamlitGUI",
             "special": {
-                "choiceBased": {
+                "choice_based": {
                     "Cached": 0
                 },
-                "checkBased": {
-                    "StartUICheck": true,
-                    "GenReqCheck": true
+                "check_based": {
+                    "RunExecutable": true,
+                    "GenReqExecutable": false
                 }
             }
         }

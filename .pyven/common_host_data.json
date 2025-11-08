@@ -6,5 +6,8 @@
         "Rules.py",
         "RuleLibrary/",
         "Utils/"
-    ]
+    ],
+    "streamlit": {
+        "link": "https://kausikn-conwaygamelife.streamlit.app/"
+    }
 }

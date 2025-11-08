@@ -8,6 +8,8 @@ import json
 import functools
 import numpy as np
 import streamlit as st
+from stqdm import stqdm
+from code_editor import code_editor
 
 from Utils.VideoUtils import *
 
@@ -63,18 +65,23 @@ SETTINGS = {
 
 # Util Functions
 def LoadCache():
+    '''
+    Load Cache
+    '''
     global CACHE
     CACHE = json.load(open(PATHS["cache"], "r"))
 
 def SaveCache():
+    '''
+    Save Cache
+    '''
     global CACHE
     json.dump(CACHE, open(PATHS["cache"], "w"), indent=4)
 
 # Main Functions
-@st.cache(suppress_st_warning=True)
 def CachedFunc_SimRun_2D(GridValues, USERINPUT_Funcs, SimParams):
     '''
-    Run Simulation with Caching
+    Cached Function - Run Simulation - 2D
     '''
     # Init Grid
     GRID = np.empty((GridValues.shape[0], GridValues.shape[1]), dtype=object)
@@ -85,26 +92,26 @@ def CachedFunc_SimRun_2D(GridValues, USERINPUT_Funcs, SimParams):
     # Init Sim
     SIM = Simulation(GRID, USERINPUT_Funcs, **SimParams)
     # Run Sim
-    PROGRESS_BAR = st.progress(0)
-    for i in range(SIM.n_iterations):
+    for i in stqdm(range(SIM.n_iterations), desc="Running Simulation"):
         SIM.step()
-        PROGRESS_BAR.progress((i+1)/SIM.n_iterations)
 
     return SIM
 
 # UI Functions
 def UI_LoadRuleFunc(dim="2D"):
+    '''
+    UI - Load Rule Function
+    '''
     # Init
     st.markdown("## Rule Function")
-    cols = st.columns(2)
     # Load Func
-    USERINPUT_RuleFuncName = cols[0].selectbox(
+    USERINPUT_RuleFuncName = st.selectbox(
         "Rule Function",
         tuple(RULE_FUNCS[dim].keys())
     )
     USERINPUT_RuleFunc = RULE_FUNCS[dim][USERINPUT_RuleFuncName]
     # Load Params
-    USERINPUT_RuleFuncParams_str = cols[1].text_area(
+    USERINPUT_RuleFuncParams_str = st.text_area(
         "Rule Function Params", 
         value=json.dumps(USERINPUT_RuleFunc["params"], indent=8),
         height=200
@@ -118,6 +125,9 @@ def UI_LoadRuleFunc(dim="2D"):
     return USERINPUT_RuleFunc
 
 def UI_GenerateGrid_2D():
+    '''
+    UI - Generate Grid - 2D
+    '''
     # Init
     st.markdown("## Generate Grid")
     # Get Grid Size
@@ -128,7 +138,7 @@ def UI_GenerateGrid_2D():
     ## Display Grid Size Indicator
     I_GridSizeIndicator = np.zeros(GRID_PARAMS["2D"]["max_grid_size"], dtype=float)
     I_GridSizeIndicator[:USERINPUT_GridSize[0], :USERINPUT_GridSize[1]] = 1.0
-    cols[1].image(I_GridSizeIndicator, caption="Grid Size Indicator", use_column_width=True)
+    cols[1].image(I_GridSizeIndicator, caption="Grid Size Indicator", use_container_width=True)
 
     # Generate Grid
     USERINPUT_RandomSeed = int(st.number_input("Random Seed", value=0, step=1))
@@ -139,12 +149,15 @@ def UI_GenerateGrid_2D():
     ## Display Grid
     st.image(
         ResizeImage_Pixelate(GridValues, maxSize=SETTINGS["display_size"]), 
-        caption="Grid", use_column_width=False
+        caption="Grid", use_container_width=False
     )
 
     return GridValues
 
 def UI_SimulatorParams_2D():
+    '''
+    UI - Simulator Params - 2D
+    '''
     # Init
     st.markdown("## Simulator Params")
     # Load Params
@@ -156,6 +169,9 @@ def UI_SimulatorParams_2D():
     return USERINPUT_SimParams
 
 def UI_SimVis_2D(SIM):
+    '''
+    UI - Sim Visualisation - 2D
+    '''
     # Init
     st.markdown("## Visualise Simulation")
     # Visualise
@@ -163,12 +179,12 @@ def UI_SimVis_2D(SIM):
     # save_path = os.path.join(PATHS["temp"], "SimHistory.gif")
     # SimHistory_Images = [ResizeImage_Pixelate(h["image"], maxSize=SETTINGS["display_size"]) for h in SIM.history]
     # VideoUtils_SaveFrames2Video(SimHistory_Images, save_path, fps=5.0)
-    # st.image(save_path, caption="Simulation", use_column_width=True)
+    # st.image(save_path, caption="Simulation", use_container_width=True)
     # ## Display History Slider
     # USERINPUT_HistorySlider = st.slider("Step", min_value=0, max_value=len(SIM.history)-1, value=0)
     # st.image(
     #     ResizeImage_Pixelate(SIM.history[USERINPUT_HistorySlider]["image"], maxSize=SETTINGS["display_size"]), 
-    #     caption="Simulation", use_column_width=False
+    #     caption="Simulation", use_container_width=False
     # )
     ## Save History as Video and Display
     save_path_converted = os.path.join(PATHS["temp"], "SimHistory_Converted.mp4")

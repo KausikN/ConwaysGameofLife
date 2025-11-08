@@ -1,2 +1,5 @@
 streamlit
 opencv-python-headless
+
+stqdm
+streamlit-code-editor
