@@ -87,12 +87,22 @@
                 "*.py",
                 "*.py",
                 "*.py",
+                "code_editor.py",
                 "functools.py",
                 "json.py",
                 "numpy.py",
                 "os.py",
+                "stqdm.py",
                 "streamlit.py"
             ]
+        },
+        "code_editor.py": {
+            "name": "code_editor",
+            "type": "inbuilt",
+            "link": "",
+            "parent_dir": "D:/Github Codes and Projects/Projects/ConwaysGameofLife",
+            "sub_dir": "",
+            "dependencies": []
         },
         "cv2.py": {
             "name": "cv2",
@@ -136,6 +146,14 @@
         },
         "os.py": {
             "name": "os",
+            "type": "inbuilt",
+            "link": "",
+            "parent_dir": "D:/Github Codes and Projects/Projects/ConwaysGameofLife",
+            "sub_dir": "",
+            "dependencies": []
+        },
+        "stqdm.py": {
+            "name": "stqdm",
             "type": "inbuilt",
             "link": "",
             "parent_dir": "D:/Github Codes and Projects/Projects/ConwaysGameofLife",
